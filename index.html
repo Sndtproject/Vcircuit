@@ -68,12 +68,12 @@
 
         <pre>Netlist File
 <h7 id=r1data>R1 1 2 </h7><h7>k</h7>		
-C1 1 3 10Uf
-V1 2 0 PWL(0.01 1 0.02 2 0.03 3 0.04 4) rser=0.1
-Vout 2 0 1
-in 2 3 4
+V1 1 0 pulse(0 1 6n 10p 10p 1000n 5000n)
+C1 2 0 65.5p
 .op
+.tran 50u
 .end
+
 </pre>
 
     </div>
