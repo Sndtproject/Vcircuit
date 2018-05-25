@@ -1,0 +1,119 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="http://use.edgefonts.net/advent-pro:n2,n5,n7,n4,n1,n6,n3:all.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+    
+
+    <title>
+        VCircuitSim
+    </title>
+</head>
+
+<body>
+    <div class="w3-container w3-slateblue w3-center">
+        <h1>
+            RLC
+        </h1>
+    </div>
+   
+    </body>
+    <div style="padding-left: 100px;padding-top: 50px;">
+        <p>
+            Enter R1 =
+        </p>
+
+    </div>
+    <div id=r1>
+        <p>
+
+        </p>
+    </div>
+
+    <div id="text" style="padding-top: 100px; padding-bottom: 50px;padding-left: 40%; padding-right: 20%">
+
+        <pre>Netlist File
+<h7 id=r1data>R1 1 2 </h7><h7>k</h7>		
+C1 2 0 65.5p
+V1 1 0 pulse(0 1 6n 10p 10p 1000n 5000n)
+.op
+.tran 50u
+.end
+
+</pre>
+
+    </div>
+    <div style="text-align: center">
+
+        <button onclick="download()" style="text-align: center">Generate Netlist</button>
+        <button id="myButton" class="float-left submit-button">Click to begin</button>
+
+    </div>
+
+    <script src="FileSaver.js"></script>
+    <script>
+        function download() {
+            var data = document.getElementById("text").innerHTML;
+            var textToSave = $(data).text();
+            var blob = new Blob([textToSave], {
+                type: "text/plain;charset=utf-8"
+            });
+            saveAs(blob, "Netlist.net");
+        }
+
+    </script>
+    <script>
+        var i;
+        var num;
+        var count = 0;
+        var res = "";
+        var R1 = 0;
+        var R2 = 0;
+        var Volts;
+        if (annyang) {
+            var commands = {
+                'hello': function() {}
+            }
+        };
+        annyang.addCallback('result', function(userSaid) {
+            for (i = 0; i < 5; i++) { //res = Number.isNaN(userSaid[i]);
+                if (count == 0) {
+                    R1 = userSaid[i].replace(/^\D+|\D+$/g, "");
+                    if(R1 == 10){
+                        R2=10;
+                    }
+                        
+                    console.log(R2);
+                    count = count + 1;
+                    var test = document.getElementById("r1").innerHTML = R1;
+                    document.getElementById("r1data").innerHTML = r1data.innerHTML += R1;
+                }
+                if (count > 0) {
+                    count = 0;
+                    break;
+                }
+            }
+        });
+        
+            
+            document.getElementById("myButton").onclick = function() {
+                    location.href = 'http://spinningnumbers.org/circuit-sandbox/index.html?value=[[%22s%22,[264,64,0],{%22color%22:%22cyan%22,%22offset%22:%220%22,%22_json_%22:0},[%222%22]],[%22w%22,[264,128,208,128]],[%22w%22,[152,128,208,128]],[%22g%22,[208,128,0],{%22_json_%22:3},[%220%22]],[%22w%22,[264,64,264,80]],[%22w%22,[232,64,264,64]],[%22w%22,[152,64,184,64]],[%22w%22,[152,80,152,64]],[%22c%22,[264,80,0],{%22name%22:%22C1%22,%22c%22:%2265.5p%22,%22_json_%22:8},[%222%22,%220%22]],[%22r%22,[232,64,1],{%22name%22:%22R1%22,%22r%22:%22'+R1+'k%22,%22_json_%22:9},[%222%22,%221%22]],[%22v%22,[152,80,0],{%22name%22:%22vin%22,%22value%22:%22pulse(0,1,6n,10p,10p,1000n,5000n)%22,%22_json_%22:10},[%221%22,%220%22]],[%22view%22,110.6424,32.20688,3.814697265625,%2250%22,%2210%22,%221G%22,%22vin%22,%22100%22,%2250u%22,%221000%22]]';
+
+                }   
+            
+        // Add our commands to annyang
+        annyang.addCommands(commands);
+        //annyang.debug();
+        // Start listening. You can call this here, or attach this call to an event, button, etc.
+        annyang.start();
+        
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</body>
+
+</html>
