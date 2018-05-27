@@ -10,14 +10,14 @@
     <script src="Script/FileSaver.js"></script>
 
     <title>
-        RLC
+        RC
     </title>
 </head>
 
 <body>
     <div class="w3-container w3-blue w3-center">
         <h1>
-            RLC CIRCUIT
+            RC CIRCUIT
         </h1>
     </div>
 
@@ -35,16 +35,14 @@
 
     <div id="text" style="padding-top: 70px;padding-left: 40%; padding-right: 20%">
 
-        <pre>RLC Netlist File	
-V1 1 0 AC 10
+        <pre>RC Netlist File		
+V1 1 0 pulse(0 1 6n 10p 10p 1000n 5000n)
 <h7 id=r1data>R1 1 2 </h7><h7>k</h7>
-L1 2 3 1m
-C1 3 0 1u
+C1 2 0 65.5p
 
 .op
-.ac oct 10 50 100
-.ic I(L1)= 0
-.ic V(n003)= 0
+.tran 50u
+.end
 </pre>
 
     </div>
@@ -77,16 +75,15 @@ C1 3 0 1u
 
 
         document.getElementById("myButton").onclick = function() {
-            location.href = 'http://spinningnumbers.org/circuit-sandbox/index.html?value=[[%22w%22,[152,128,208,128]],[%22g%22,[208,128,0],{%22_json_%22:1},[%220%22]],[%22w%22,[152,64,184,64]],[%22w%22,[152,80,152,64]],[%22r%22,[232,64,1],{%22name%22:%22R1%22,%22r%22:%22'+R1+'k%22,%22_json_%22:4},[%222%22,%223%22]],[%22v%22,[152,80,0],{%22name%22:%22vin%22,%22value%22:%22step(0,1,0,1n)%22,%22_json_%22:5},[%223%22,%220%22]],[%22l%22,[232,64,3],{%22l%22:%221n%22,%22_json_%22:6},[%222%22,%221%22]],[%22c%22,[280,64,0],{%22c%22:%221p%22,%22_json_%22:7},[%221%22,%220%22]],[%22w%22,[208,128,280,128]],[%22w%22,[280,112,280,128]],[%22s%22,[280,64,0],{%22color%22:%22cyan%22,%22offset%22:%220%22,%22_json_%22:10},[%221%22]],[%22view%22,110.6424,32.20688,3.814697265625,%2250%22,%2210%22,%221G%22,%22vin%22,%22100%22,%2210m%22,%221000%22]]';
+            location.href = 'http://spinningnumbers.org/circuit-sandbox/index.html?value=[[%22w%22,[152,128,208,128]],[%22g%22,[208,128,0],{%22_json_%22:1},[%220%22]],[%22w%22,[152,64,184,64]],[%22w%22,[152,80,152,64]],[%22r%22,[232,64,1],{%22name%22:%22R1%22,%22r%22:%22'+R1+'k%22,%22_json_%22:4},[%221%22,%222%22]],[%22v%22,[152,80,0],{%22name%22:%22vin%22,%22value%22:%22pulse(0,1,6n,10p,10p,1000n,5000n)%22,%22_json_%22:5},[%222%22,%220%22]],[%22w%22,[232,64,336,64]],[%22w%22,[208,128,336,128]],[%22c%22,[336,72,0],{%22name%22:%22%22,%22c%22:%2265.5p%22,%22_json_%22:8},[%221%22,%220%22]],[%22w%22,[336,72,336,64]],[%22w%22,[336,120,336,128]],[%22s%22,[336,64,0],{%22color%22:%22cyan%22,%22offset%22:%220%22,%22_json_%22:11},[%221%22]],[%22view%22,87.66,-1.7079999999999984,2.44140625,%2250%22,%2210%22,%221G%22,%22vin%22,%22100%22,%2250u%22,%221000%22]]'; 
         }
-
         function download() {
             var data = document.getElementById("text").innerHTML;
             var textToSave = $(data).text();
             var blob = new Blob([textToSave], {
                 type: "text/plain;charset=utf-8"
             });
-            saveAs(blob, "RLC Netlist.net");
+            saveAs(blob, "RC Netlist.net");
         }
 
     </script>
